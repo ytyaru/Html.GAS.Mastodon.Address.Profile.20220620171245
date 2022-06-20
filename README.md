@@ -1,12 +1,12 @@
 [ja](./README.ja.md)
 
-# GAS.Mastodon.Address.Profile
+# GAS.Mastodon.Misskey.Address.Profile
 
 By acquiring profile information from the Mastodon API, it is possible to reduce the input of registration information.
 
 # DEMO
 
-* [DEMO](https://ytyaru.github.io/Html.GAS.Mastodon.Address.Profile.20220620171245/)
+* [DEMO](https://ytyaru.github.io/Html.GAS.Mastodon.Misskey.Address.Profile.20220620171245/)
 
 # Features
 
@@ -27,13 +27,13 @@ Linux raspberrypi 5.10.103-v7l+ #1529 SMP Tue Mar 8 12:24:00 GMT 2022 armv7l GNU
 # Installation
 
 ```sh
-git clone https://github.com/ytyaru/Html.GAS.Mastodon.Address.Profile.20220620171245
+git clone https://github.com/ytyaru/Html.GAS.Mastodon.Misskey.Address.Profile.20220620171245
 ```
 
 # Usage
 
 ```sh
-cd Html.GAS.Mastodon.Address.Profile.20220620171245/src
+cd Html.GAS.Mastodon.Misskey.Address.Profile.20220620171245/src
 ./run.sh
 ```
 

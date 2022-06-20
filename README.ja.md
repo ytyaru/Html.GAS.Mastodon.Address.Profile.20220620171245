@@ -1,12 +1,12 @@
 [en](./README.md)
 
-# GAS.Mastodon.Address.Profile
+# GAS.Mastodon.Misskey.Address.Profile
 
 　マストドンAPIからプロフィール情報を取得することで登録情報の入力を軽減する。
 
 # デモ
 
-* [デモ](https://ytyaru.github.io/Html.GAS.Mastodon.Address.Profile.20220620171245/)
+* [デモ](https://ytyaru.github.io/Html.GAS.Mastodon.Misskey.Address.Profile.20220620171245/)
 
 # 特徴
 
@@ -27,13 +27,13 @@ Linux raspberrypi 5.10.103-v7l+ #1529 SMP Tue Mar 8 12:24:00 GMT 2022 armv7l GNU
 # インストール
 
 ```sh
-git clone https://github.com/ytyaru/Html.GAS.Mastodon.Address.Profile.20220620171245
+git clone https://github.com/ytyaru/Html.GAS.Mastodon.Misskey.Address.Profile.20220620171245
 ```
 
 # 使い方
 
 ```sh
-cd Html.GAS.Mastodon.Address.Profile.20220620171245/src
+cd Html.GAS.Mastodon.Misskey.Address.Profile.20220620171245/src
 ./run.sh
 ```
 
