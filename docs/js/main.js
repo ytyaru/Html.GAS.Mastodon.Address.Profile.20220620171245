@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
           .on('addressChanged', async(address) => { await init(address); console.log(address); });
     } catch(e) { console.debug(e) }
     let isGetProfileFromSns = false
-    document.getElementById('get-profile-from-gas').addEventListener('click', async(event) => { initForm() });
+    //document.getElementById('get-profile-from-gas').addEventListener('click', async(event) => { initForm() });
     document.getElementById('get-profile-from-mastodon').addEventListener('click', async(event) => {
         const domain = document.getElementById('mastodon-instance').value
         if ('' == domain.trim()) { Toaster.toast(`インスタンスのドメイン名またはURLを入力してください。`, true); return; }
@@ -67,6 +67,9 @@ window.addEventListener('DOMContentLoaded', async(event) => {
                 //json.profile = JSON.parse(json.profile)
                 if (isGetProfileFromSns) { document.getElementById('address').value = address }
                 else { showMyData(json) }
+                const gen = new ProfileGenerator()
+                const profile = (typeof json.profile === "string" || json.profile instanceof String) ? JSON.parse(json.profile) : json.profile
+                document.getElementById('html-profile').innerHTML = gen.generate(profile)
             }
         }
     }
@@ -142,8 +145,8 @@ window.addEventListener('DOMContentLoaded', async(event) => {
                 document.getElementById(`field-${i+1}-value`).value = fields[i].value
             }
         }
-        const gen = new ProfileGenerator()
-        document.getElementById('html-profile').innerHTML = gen.generate(profile)
+        //const gen = new ProfileGenerator()
+        //document.getElementById('html-profile').innerHTML = gen.generate(profile)
     }
     function makeLink(url, innerHtml=null) {
         const a = document.createElement('a')
@@ -195,6 +198,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
             if ('accounts' == event.detail.actions[i]) {
                 const gen = new MastodonProfileGenerator(event.detail.domain)
                 document.getElementById('export-mastodon').innerHTML = gen.generate(event.detail.results[i])
+                document.getElementById(`mastodon-instance`).value = event.detail.domain
                 // 入力フォームに値をセットする
                 const user = event.detail.results[i]
                 document.getElementById(`name`).value = user.display_name || user.username || user.acct || user.id
@@ -262,18 +266,22 @@ window.addEventListener('DOMContentLoaded', async(event) => {
             if ('i' == event.detail.actions[i]) {
                 const gen = new MisskeyProfileGenerator(event.detail.domain)
                 document.getElementById('export-misskey').innerHTML = gen.generate(event.detail.results[i])
+                document.getElementById(`misskey-instance`).value = event.detail.domain
                 // 入力フォームに値をセットする
                 const user = event.detail.results[i]
+                console.debug(user)
                 document.getElementById(`name`).value = user.name || user.username || user.id
-                document.getElementById(`avatar`).value = user.avatar || user.avatar_static || user.header || user.header_static
-                document.getElementById(`url`).value = user.url
-                const note = document.createElement('div')
-                note.innerHTML = user.note
-                document.getElementById(`description`).value = note.innerText
+                document.getElementById(`avatar`).value = user.avatarUrl
+                document.getElementById(`url`).value = `https://${event.detail.domain}/@${user.username}`
+                //const note = document.createElement('div')
+                //note.innerHTML = user.note
+                document.getElementById(`description`).value = user.description; //note.innerText
+                /*
                 console.debug(user.note)
                 console.debug(note)
                 console.debug(note.innerHTML)
                 console.debug(note.innerText)
+                */
                 if (user.hasOwnProperty('fields')) {
                     console.debug(user.fields)
                     for (let i=0; i<user.fields.length; i++) {
@@ -283,7 +291,6 @@ window.addEventListener('DOMContentLoaded', async(event) => {
                         document.getElementById(`field-${i+1}-value`).value = value.innerText
                     }
                 }
-
                 isGetProfileFromSns = true
             }
             else if ('note' == event.detail.actions[i]) {
